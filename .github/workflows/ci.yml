@@ -12,11 +12,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        java: [8, 11, 17, 21] # 选择要测试的 Java 版本
-      fail-fast: false
-      max-parallel: 4
 
     steps:
       - name: Checkout repository
@@ -25,7 +20,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
-          java-version: ${{ matrix.java }}
+          java-version: '8'
 
       - name: Cache Gradle wrapper
         uses: actions/cache@v3
