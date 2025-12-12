@@ -41,13 +41,19 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew jar --no-daemon
 
-      - name: List build directory
-        run: ls -la build/dist/maven
+      - name: List build artifacts
+        run: find . -name '*.jar' -path '*/build/libs/*' -type f
 
-      - name: tar
-        run: tar -zcvf target.all.tar.gz build/dist/maven
+      - name: Collect build artifacts
+        run: |
+          mkdir -p build/artifacts
+          find . -name '*.jar' -path '*/build/libs/*' -type f -exec cp {} build/artifacts/ \;
+
+      - name: Create tarball
+        run: tar -zcvf jarjar-artifacts.tar.gz build/artifacts
+
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: build-artifacts
-          path: target.all.tar.gz
+          path: jarjar-artifacts.tar.gz
