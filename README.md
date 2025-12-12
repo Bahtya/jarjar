@@ -8,6 +8,36 @@ You can avoid problems where your library depends on a specific
 version of a library, which may conflict with the dependencies of
 another library.
 
+Build Artifacts
+---------------
+
+This project produces the following artifacts:
+
+- **jarjar-command-1.1.1.jar** - Standalone command-line tool (recommended for most users)
+- **jarjar-ant-1.1.1.jar** - Ant task plugin
+- **jarjar-gradle-1.1.1.jar** - Gradle plugin
+- **jarjar-maven-1.1.1.jar** - Maven plugin
+- **jarjar-core-1.1.1.jar** - Core library for programmatic use
+
+Quick Start with Command Line
+------------------------------
+
+Download `jarjar-command-1.1.1.jar` and use it directly:
+
+```bash
+# Create a rules file (rules.txt)
+echo "rule com.google.common.** org.myapp.libs.guava.@1" > rules.txt
+
+# Repackage a library to avoid conflicts
+java -jar jarjar-command-1.1.1.jar process rules.txt guava-18.0.jar guava-repackaged.jar
+
+# Find dependencies between jars
+java -jar jarjar-command-1.1.1.jar find jar myapp.jar libs/
+
+# Show help
+java -jar jarjar-command-1.1.1.jar help
+```
+
 How does it work?
 
 Jar Jar Links includes an Ant task that extends the built-in jar
