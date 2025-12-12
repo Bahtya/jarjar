@@ -8,6 +8,12 @@ buildscript {
 		gradlePluginPortal()
 	}
 
+	configurations.classpath {
+		resolutionStrategy {
+			force 'org.ajoberstar.grgit:grgit-core:4.1.1'
+		}
+	}
+
 	dependencies {
 		classpath 'org.anarres.gradle:gradle-stdproject-plugin:1.0.10'
 	}
